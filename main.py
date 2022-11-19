@@ -39,6 +39,11 @@ class RateMovieForm(FlaskForm):
     new_review = StringField('Your Review', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+
+class AddMovieForm(FlaskForm):
+    movie_title = StringField('Movie Title', validators=[DataRequired()])
+    submit = SubmitField('Add Movie')
+
 # new_movie = Movies(
 #     title="Phone Booth",
 #     year=2002,
@@ -79,6 +84,12 @@ def delete():
     db.session.delete(movie_to_delete)
     db.session.commit()
     return redirect(url_for('home'))
+
+
+@app.route('/add')
+def add():
+    form = AddMovieForm()
+    return render_template('add.html', form=form)
 
 
 if __name__ == '__main__':
